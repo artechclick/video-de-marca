@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>motor</title>
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script>
+// Carga configuración -> fuentes -> motor -> escenas -> íconos. ?formato=9:16 cambia el formato sin tocar nada más.
+(async () => {
+  const j = async u => { const r = await fetch(u); if (!r.ok) throw new Error('falta ' + u); return r.json(); };
+  const q = new URLSearchParams(location.search);
+  window.PROY = await j('/05_motor/proyecto.json');
+  if (q.get('formato')) PROY.formato = q.get('formato');
+  window.MARCA = await j('/01_marca/marca.json');
+  try { window.TIEMPOS = await j('/02_voz/tiempos.json'); } catch (e) { window.TIEMPOS = null; }
+  try { window.CLIPS = await j('/05_motor/cache/clips.json'); } catch (e) { window.CLIPS = {}; }
+  const fuentes = Object.values(MARCA.tipografia || {}).filter(f => f && f.archivo);
+  await Promise.all(fuentes.map(async f => { const ff = new FontFace(f.familia, `url(/01_marca/${f.archivo})`, { weight: String(f.peso || 400) }); await ff.load(); document.fonts.add(ff); }));
+  const js = s => new Promise((ok, mal) => { const e = document.createElement('script'); e.src = s; e.onload = ok; e.onerror = () => mal(new Error('falta ' + s)); document.body.appendChild(e); });
+  for (const s of ['motor.js', ...(PROY.extras || []), 'escenas.js']) await js(s);
+  if (window.ICONOS) await cargarIconos(ICONOS);
+  if (q.get('portada')) { if (typeof portada !== 'function') throw new Error('escenas.js no define portada()'); toma(0, 1, (ctx) => portada(ctx)); }
+  else construir();
+  TOMAS.sort((a, b) => a.t0 - b.t0);
+  window.HUECOS = []; for (let i = 1; i < TOMAS.length; i++) if (Math.abs(TOMAS[i].t0 - TOMAS[i - 1].t1) > .02) HUECOS.push([+TOMAS[i - 1].t1.toFixed(2), +TOMAS[i].t0.toFixed(2)]);
+  window.NCUADROS = q.get('portada') ? 1 : Math.round(FIN * FPS);
+  window.LISTO = true;
+})().catch(e => { window.ERROR = String(e.stack || e); window.LISTO = true; });
+</script></body></html>

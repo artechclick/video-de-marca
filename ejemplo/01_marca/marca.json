@@ -1,0 +1,50 @@
+{
+  "nombre": "Agendo",
+  "colores": {
+    "fondo": "#0e0b1a",
+    "superficie": "#221a3d",
+    "texto": "#f7f5ff",
+    "suave": "#a8a1c7",
+    "primario": "#7c5cff",
+    "secundario": "#29d3c2",
+    "acento": "#ffcc33",
+    "ok": "#35e08a",
+    "alerta": "#ffb020",
+    "peligro": "#ff4d5e"
+  },
+  "tipografia": {
+    "titulos": {
+      "familia": "Anton",
+      "fontsource": "anton",
+      "peso": 400
+    },
+    "texto": {
+      "familia": "Inter",
+      "fontsource": "inter",
+      "peso": 700
+    },
+    "datos": {
+      "familia": "JetBrains Mono",
+      "fontsource": "jetbrains-mono",
+      "peso": 700
+    }
+  },
+  "logo": {
+    "color": "logo/logo.png",
+    "blanco": "logo/logo_blanco.png",
+    "marca_de_agua": true,
+    "posicion": "arriba-derecha",
+    "opacidad": 0.8
+  },
+  "estilo": {
+    "esquinas": 22,
+    "grano": 0.1,
+    "vineta": 0.45,
+    "mayusculas": true
+  },
+  "voz": {
+    "idioma": "es",
+    "voz": "ef_dora",
+    "velocidad": 1.05
+  }
+}

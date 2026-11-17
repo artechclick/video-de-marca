@@ -1,0 +1,10 @@
+{
+  "nombre": "agendo_demo",
+  "formato": "9:16",
+  "fps": 30,
+  "preroll": 0.5,
+  "cola": 2.5,
+  "locale": "es-CO",
+  "voz": {"modo": "tts"},
+  "musica": {"bpm": 112, "tonalidad": "menor"}
+}
